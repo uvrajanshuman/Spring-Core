@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--bean declarations-->
+    <!--Engine bean-->
+    <bean id="harrierEngine" class="com.refstash.dependency_injection.xml_configuration.constructor_injection.Engine">
+        <constructor-arg name="type" value="Kryotec 2.0 L Turbocharged Engine"/>
+        <constructor-arg name="displacement" value="1956cc"/>
+        <constructor-arg name="cylinder" value="4"/>
+        <constructor-arg name="transmissionType" value="Automatic"/>
+        <constructor-arg name="gearBox" value="6-Speed"/>
+    </bean>
+
+    <!-- bean declaration using c schema -->
+    <!--
+    <bean id="harrierEngine" class="com.refstash.dependency_injection.xml_configuration.constructor_injection.Engine"
+          c:type="Kryotec 2.0 L Turbocharged Engine"
+          c:displacement="1956cc"
+          c:cylinder="4"
+          c:transmissionType="Automatic"
+          c:gearBox="6-Speed"/>
+     -->
+
+    <!--Car bean-->
+    <bean id="tataHarrier" class="com.refstash.dependency_injection.xml_configuration.constructor_injection.Car">
+        <constructor-arg name="brand" value="Tata"/>
+        <constructor-arg name="model" value="Harrier"/>
+        <constructor-arg name="engine" ref="harrierEngine"/>
+        <constructor-arg name="specifications">
+            <map>
+                <entry key="Mileage" value="14.6kmpl"/>
+                <entry key="Fuel Type" value="Diesel"/>
+                <entry key="Fuel Tank Capacity" value="50.0"/>
+                <entry key="Seating Capacity" value="5"/>
+                <entry key="Body Type" value="SUV"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg name="features">
+            <list>
+                <value>Power Steering</value>
+                <value>Power Windows </value>
+                <value>Air Conditioner</value>
+                <value>Heater</value>
+                <value>Driver and Passenger Airbag</value>
+                <value>Automatic climate control</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="colors">
+            <set>
+                <value>Orcus White</value>
+                <value>Calypso Red</value>
+                <value>Daytona Grey</value>
+                <value>Oberon Black</value>
+            </set>
+        </constructor-arg>
+    </bean>
+</beans>

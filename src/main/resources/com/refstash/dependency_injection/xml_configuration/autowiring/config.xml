@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- bean declarations -->
+    <bean id="bubbleSort" class="com.refstash.dependency_injection.xml_configuration.autowiring.BubbleSort"/>
+
+    <!-- Intentionally commented to avoid ambiguity in case of autowiring byType and constructor
+    <bean id="heapSort" class="com.refstash.dependency_injection.xml_configuration.autowiring.HeapSort"/>
+    -->
+
+    <!-- Autowiring byName
+    <bean id="binarySearch"
+          class="com.refstash.dependency_injection.xml_configuration.autowiring.BinarySearch"
+          autowire="byName"/>
+    -->
+
+    <!-- Autowiring byType
+    <bean id="binarySearch"
+          class="com.refstash.dependency_injection.xml_configuration.autowiring.BinarySearch"
+          autowire="byType"/>
+     -->
+
+    <!-- Autowiring by constructor -->
+    <bean id="binarySearch"
+    class="com.refstash.dependency_injection.xml_configuration.autowiring.BinarySearch"
+    autowire="constructor"/>
+
+</beans>
