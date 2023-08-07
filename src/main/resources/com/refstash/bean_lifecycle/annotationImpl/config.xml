@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--bean declarations-->
+    <!-- by default @PostConstruct and @PreDestroy are disabled in xml based declarations -->
+
+    <!-- to enable all annotations  -->
+    <context:annotation-config/>
+
+    <!-- To enable @PostConstruct and @PreDestroy only
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    -->
+    <bean name="lifeCycleExample" class="com.refstash.bean_lifecycle.annotationImpl.LifeCycleExample">
+        <property name="x" value="10"/>
+    </bean>
+</beans>
