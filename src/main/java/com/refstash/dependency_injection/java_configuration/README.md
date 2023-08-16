@@ -153,7 +153,7 @@ public class App {
 
 - Using default methods in interfaces to define beans can help in creating modular and reusable configurations in Spring, promoting code organization and enhancing readability.
 
-## Composing Annotation based configuration metadata
+## Composing Annotation based configuration metadata using _@Import_ Annotation.
 
 It can be useful to have bean definitions span multiple configuration classes,
 as each individual configuration class can represent a logical layer or module in the architecture.
@@ -565,3 +565,66 @@ car.specifications.BodyType: 'SUV'
 
 >If XML or other `non-@Configuration` bean definition resources needs to be imported, the `@ImportResource` annotation should be used instead.
 
+## Integrating XML-based bean definitions into a Java-based configuration using _@ImportResource_ Annotation
+
+The @ImportResource annotation, when applied to a configuration class, indicates that additional bean definitions will be loaded from the specified XML configuration file.<br>
+The imported beans can then be accessed and utilized in the Java code.
+
+### Example demonstrating the usage of the `@ImportResource` annotation to import XML-based bean definitions into a Spring configuration:
+
+**XML configuration: ** _applicationContext.xml_
+
+```xml
+<!-- applicationContext.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myBean" class="com.refstash.MyBean">
+        <property name="message" value="Hello from MyBean in XML configuration!"/>
+    </bean>
+</beans>
+```
+
+**Bean class:** _MyBean.java_
+
+```java
+public class MyBean {
+    private String message;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void sayHello() {
+        System.out.println(message);
+    }
+}
+```
+
+**Configuration and Driver class:** _App.java_
+```java
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+
+@Configuration
+@ImportResource("classpath:applicationContext.xml")
+public class App {
+
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(XmlConfigurationExample.class);
+        MyBean myBean = context.getBean(MyBean.class);
+        myBean.sayHello();
+        context.close();
+    }
+}
+```
+Output:
+
+```
+Hello from MyBean in XML configuration!
+```
+
+This demonstrates how you can use the `@ImportResource` annotation to seamlessly integrate XML-based bean definitions into a Java-based Spring configuration,
+allowing you to utilize both configuration styles within a single application.
