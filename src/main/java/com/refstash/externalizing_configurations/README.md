@@ -27,11 +27,11 @@ private int connectionTimeout;
 ```
 > The external properties file should be specified either through `@PropertySource` or xml equivalent `<context:property-placeholder/>`.
 
-When @Value contains a SpEL expression the value will be dynamically computed at runtime.
+When `@Value` contains a SpEL expression the value will be dynamically computed at runtime.
 
 **Collection declaration and injection:**
 1. **Injecting List/Array:**<br>
-   The lists or array can be expressed directly in the properties file using `{}` notation. <br>
+   The lists or array can be expressed directly in the properties file separated by commas (`,`). <br>
    Consider the following list declaration and its injection.
    ```properties
    car.features = Power Steering, Power Windows, Air Conditioner, Heater \
@@ -48,7 +48,7 @@ When @Value contains a SpEL expression the value will be dynamically computed at
    Consider the following map declaration and its injection.
    ```properties
    ##Map
-   car.specifications ={Mileage: '14.6kmpl', 'Fuel Type': 'Diesel', 'Fuel Tank Capacity': 50.0, \
+   car.specifications ={'Mileage': '14.6kmpl', 'Fuel Type': 'Diesel', 'Fuel Tank Capacity': 50.0, \
      'Seating Capacity': 5, 'Body Type': 'SUV'}
    ```
    The Map can be injected through SpEL.
@@ -86,7 +86,7 @@ SpEL allows you to access properties, methods, and fields of objects, perform ma
 The `Environment` interface provides a powerful way to access properties and profiles. 
 It allows you to programmatically access configuration values, which can be particularly useful for dynamic scenarios.
 
-Example: Fetching database configurations from the "app.properties" file and linking them to the DataSourceConfig class through the Environment interface.
+Example: Fetching database configurations from the **app.properties** file and linking them to the DataSourceConfig class through the Environment interface.
 ```java
 @Configuration
 @PropertySource("classpath:app.properties")
@@ -154,7 +154,7 @@ public class AppConfig {
 
 ## _@ImportResource_ Annotation
 
-The @ImportResource annotation, when applied to a configuration class, indicates that additional bean definitions will be loaded from the specified XML configuration file.<br> 
+The `@ImportResource` annotation, when applied to a configuration class, indicates that additional bean definitions will be loaded from the specified XML configuration file.<br> 
 The imported beans can then be accessed and utilized in the Java code.
 
 It helps to seamlessly integrate XML-based bean definitions into a Java-based Spring configuration, 

@@ -22,7 +22,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 </beans>
 ```
 
-And `ClassPathXmlApplicationContext` or `FileSystemXMLApplicationContext` is used as an implementation of ApplicationContext;
+And `ClassPathXmlApplicationContext` or `FileSystemXMLApplicationContext` is used as an implementation of `ApplicationContext`;
 based on the location of Configuration xml file.
 
 | Properties      | Description                                                                                                                                                                                                                                                                                                      |
@@ -54,7 +54,9 @@ Generally beans are instantiated using their constructor.
 The `<bean>` element in XML configuration can define the class of the bean, and constructor arguments can be provided using `<constructor-arg>` elements.
 ```xml
 <beans>
-    <bean id="exampleBean" class="examples.ExampleBean"/>
+    <bean id="exampleBean" class="examples.ExampleBean">
+        <constructor-arg value="constructorParamValue"/>
+    </bean>
     <bean name="anotherExample" class="examples.ExampleBeanTwo"/>
 </beans>
 ```
@@ -84,17 +86,21 @@ Example:
 - The definition does not specify the type (class) of the returned object, but rather the class containing the factory method.
 
 ```java
-public class ExampleBean {
-
-	// a private constructor
-    private ExampleBean(AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+public class ExampleBean { 
+    
+    // private constructor
+    private ExampleBean(AnotherBean anotherBean, 
+                        YetAnotherBean yetAnotherBean, 
+                        int i) {
 		//...
-	}
+    }
 
 	// static factory method
-    public static ExampleBean createInstance (AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+    public static ExampleBean createInstance (AnotherBean anotherBean, 
+                                              YetAnotherBean yetAnotherBean, 
+                                              int i) {
         ExampleBean eb = new ExampleBean (anotherBean, yetAnotherBean, i);
-		// ...
+        // ...
 		return eb;
     }
 }
@@ -158,7 +164,7 @@ Spring can automatically discover the required beans and wire them together base
 
 ## Composing XML based configuration metadata
 
-It can be useful to have bean definitions span multiple XML files,
+It can be useful to have bean definitions span across multiple XML files,
 as each individual XML configuration file can represent a logical layer or module in the architecture.
 
 `<import/>` element allows to import one or more configuration files into another configuration file. <br>
@@ -217,7 +223,7 @@ public class App {
 ## Bean definition inheritance
 A bean definition can contain various configuration details (like constructor arguments, property values, scopes, initialization method etc.) 
 that may be common for a lot of other bean definitions as well.<br>
-To avoid duplicating configuration across similar beans, Spring provides a powerful feature called "Bean Definition Inheritance".  
+To avoid duplicating configuration across similar beans, Spring provides a powerful feature called **Bean Definition Inheritance**.  
 This mechanism allows to create parent and child bean definitions, where the child inherits configuration data from the parent, with the ability 
 to override or add new values as needed. 
 
@@ -234,10 +240,10 @@ The `parent` attribute of a `<bean>` element can be used to specify the parent t
     <property name="property3" value="value3" /> <!-- New property in the child bean -->
 </bean>
 ```
-- In this example, the childBean inherits the property1 and property2 from the parentBean and overrides property2 with a new value.
-- Additionally, it introduces a new property, property3, that is specific to the childBean.
+- In this example, the `childBean` inherits the `property1` and `property2` from the `parentBean` and overrides `property2` with a new value.
+- Additionally, it introduces a new property, `property3`, that is specific to the childBean.
 
-Additionally, a bean can be marked as abstract by setting the `abstract` attribute of `<bean>` element to **true**. 
+Additionally, a bean can be marked as abstract by setting the `abstract` attribute of `<bean>` element to `true`. 
 The `class` attribute of such beans should be left blank.<br>
 Such abstract beans can not be instantiated, and serves purely as template to child beans.
 

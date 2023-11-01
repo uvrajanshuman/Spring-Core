@@ -36,10 +36,10 @@ Each bean in the container is defined by these properties, and the IoC container
 
 ## Registering existing objets as Spring Beans
 
-The bean definitions are generally provided through XML or Java configuration files. However, the ApplicationContext also allows the 
+The bean definitions are generally provided through XML or Java configuration files. However, the `ApplicationContext` also allows the 
 registration of existing objects that are created outside the container by users.
 
-This can be done by accessing the ApplicationContext's `BeanFactory` using the `getAutowireCapableBeanFactory()` method, which returns `AutowireCapableBeanFactory` implementation.<br>
+This can be done by accessing the `ApplicationContext`'s `BeanFactory` using the `getAutowireCapableBeanFactory()` method, which returns `AutowireCapableBeanFactory` implementation.<br>
 The `DefaultListableBeanFactory` is the child interface of `AutowireCapableBeanFactory`, and supports the registration of singleton instances through the `registerSingleton(..)` method and 
 the registration of bean definitions through the `registerBeanDefinition(..)` method.
 

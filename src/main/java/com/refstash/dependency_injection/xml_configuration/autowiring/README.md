@@ -16,8 +16,8 @@ Autowiring can be done either using xml or using annotation.
 
 ### Limitations:
 - The dependencies can still be defined using `<constructor-arg>` and `<property>`, and it will always override autowiring.
-- Autowiring can not inject primitive and string values.
-- It works with References only. 
+- Autowiring can not inject primitive type and string type values.
+- It works with Reference types only. 
 
 ## Example demonstrating Autowiring through XML configuration
 
@@ -71,7 +71,7 @@ In such case, the **property name** and the desired **bean name** must be same. 
 
 public class BinarySearch {
     // Dependency of BinarySearch
-    // Dependency injected by Spring
+    // Property name matches the desired dependency
     private SortAlgorithm bubbleSort;
 
     public SortAlgorithm getBubbleSort() {
@@ -118,7 +118,7 @@ Herein, the property name **bubbleSort** of BinarySearch class matches a bean id
 ### Autowiring byType
 
 The **byType** mode injects the object dependency according to type. <br>
-So property name and bean name can be different. It internally calls setter method.
+So property name and bean name can be different. It internally calls the setter method.
 
 In case two or more beans of matching type exists in the config file, then it causes ambiguity and leads to exception.
 
@@ -178,10 +178,11 @@ public class BinarySearch {
 >**Note:**<br>
 > In case the dependency of a bean can be resolved by more than one available bean, it leads to ambiguity and thus is not allowed.<br>
 > Herein, **BinarySearch** bean's dependency **SortAlgorithm** can be resolved by two available beans **BubbleSort** and **HeapSort**;
-> this leads to ambiguity and thus spring throus following exception:
+> this leads to ambiguity and thus spring throws following exception:
 >  ```shell
 >  Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of 
->  type 'com.refstash.dependency_injection.xml_configuration.autowiring.SortAlgorithm' available: expected single matching bean but found 2: bubbleSort,heapSort
+>  type 'com.refstash.dependency_injection.xml_configuration.autowiring.SortAlgorithm' available: 
+>  expected single matching bean but found 2: bubbleSort,heapSort
 >  ```
 >To avoid this ambiguity **heapSort** bean declaration has been intentionally commented
 
@@ -251,7 +252,8 @@ The wiring will happen through the one arg constructor of **BinarySearch**.
 >Herein, two beans of type **SortAlgorithm** are present which will lead to ambiguity and thus spring will throw following exception:
 >  ```shell
 >  Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of 
->  type 'com.refstash.dependency_injection.xml_configuration.autowiring.SortAlgorithm' available: expected single matching bean but found 2: bubbleSort,heapSort
+>  type 'com.refstash.dependency_injection.xml_configuration.autowiring.SortAlgorithm' available: 
+>  expected single matching bean but found 2: bubbleSort,heapSort
 >  ```
 >To avoid this ambiguity **heapSort** bean has been intentionally commented.
 
@@ -259,15 +261,15 @@ The wiring will happen through the one arg constructor of **BinarySearch**.
 ```java
 //imports
 class App {
-	public static void main(String[] args) {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("com/refstash/dependency_injection/xml_configuration/autowiring/config.xml");
+    public static void main(String[] args) {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("com/refstash/dependency_injection/xml_configuration/autowiring/config.xml");
 
-		BinarySearch binarySearch = applicationContext.getBean("binarySearch", BinarySearch.class);
+        BinarySearch binarySearch = applicationContext.getBean("binarySearch", BinarySearch.class);
 
-		int[] arr = { 2, 3, 4, 10, 40 };
-		int result = binarySearch.search(arr, 40);
-		System.out.println(result != -1 ? "Element found" : "Element not found");
-	}
+        int[] arr = {2, 3, 4, 10, 40};
+        int result = binarySearch.search(arr, 40);
+        System.out.println(result != -1 ? "Element found" : "Element not found");
+    }
 }
 ```
 Output:
@@ -290,11 +292,11 @@ Ex:
   <!-- injecting dependencies of the bean -->
 </bean>
 ```
-- The container will make such beans unavailable for autowiring (including annotation based autowiring using @Autowired).
+- The container will make such beans unavailable for autowiring (including annotation based autowiring using `@Autowired`).
 
 > The `autowire-candidate` attribute is meant to affect only type-based autowiring.<br>
 > It does not affect explicit references by name even though the bean is marked as non-autowiring candidate.
-> Thus, Autowiring byName still works and injects the bean if the name matches with the target property.
+> Thus, Autowiring `byName` still works and injects the bean if the name matches with the target property.
 
 The beans defined in an XML configuration file can also be restricted for autowiring based on some pattern matching.<br>
 The top-level `<beans/>` element accepts one or more patterns within its `default-autowire-candidates` attribute.

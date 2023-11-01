@@ -68,7 +68,7 @@ public class ApplicationContextAwareBean {
 > A bean can become aware of `ApplicationContext` either by implementing the `ApplicationContextAware` interface or
 > by directly autowirng the `ApplicationContext` in it.
 
-## Usage:
+## Usages:
 
 This can be useful in several scenarios.
 

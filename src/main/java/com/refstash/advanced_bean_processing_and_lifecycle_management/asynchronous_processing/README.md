@@ -71,7 +71,7 @@ The `@EnableAsync` annotation enables asynchronous support, and the `@Async` ann
 should be executed asynchronously using the custom `ThreadPoolTaskExecutor` bean.
 
 >**Note:** <br>
-> ThreadPoolTaskExecutor
+> **ThreadPoolTaskExecutor**
 > 
 >**1. corePoolSize:** This parameter sets the initial and minimum number of threads in the thread pool.<br> 
    Threads up to this core size are created immediately upon pool initialization and are kept alive even when idle.<br> 

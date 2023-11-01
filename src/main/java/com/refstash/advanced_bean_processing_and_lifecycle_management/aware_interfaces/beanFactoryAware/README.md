@@ -65,7 +65,7 @@ public class BeanFactoryAwareBean {
 > A bean can become aware of `BeanFactory` either by implementing the `BeanFactoryAware` interface or
 > by directly autowiring the `BeanFactory` into it.
 
-## Usage:
+## Usages:
 
 `BeanFactoryAware` can be useful in several scenarios:
 

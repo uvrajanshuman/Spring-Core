@@ -386,8 +386,8 @@ public class Engine {
 public class App {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("com/refstash/dependency_injection/xml_configuration/constructor_injection/config.xml");
-        Car hondaCivic = context.getBean("tataHarrier", Car.class);
-        System.out.println(hondaCivic);
+        Car tataHarrier = context.getBean("tataHarrier", Car.class);
+        System.out.println(tataHarrier);
     }
 }
 ```
@@ -410,7 +410,7 @@ When a collection is defined inside a bean declaration, it's scope is restricted
 But, by using standalone collections, same collection can be reused for injecting in multiple beans.<br>
 It's scope is not limited to a single bean and can be reused as per need.
 
-To make standalone collection util schema must be added to XML configuration.
+To make standalone collection `util` schema must be added to XML configuration.
 
 The xml configuration used in above example can be modified to use standalone collections:
 
@@ -430,7 +430,7 @@ The xml configuration used in above example can be modified to use standalone co
     
     <!-- bean definitions here -->
 
-    <!-- Engine bean declaration using p schema -->
+    <!-- Engine bean declaration using c schema -->
     <bean id="harrierEngine" class="com.refstash.dependency_injection.xml_configuration.constructor_injection.Engine"
         c:type="Kryotec 2.0 L Turbocharged Engine"
         c:displacement="1956cc"

@@ -6,8 +6,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("com/refstash/dependency_injection/xml_configuration/constructor_injection/config.xml");
-        Car hondaCivic = context.getBean("tataHarrier", Car.class);
-        System.out.println(hondaCivic);
+        Car tataHarrier = context.getBean("tataHarrier", Car.class);
+        System.out.println(tataHarrier);
     }
 }
 

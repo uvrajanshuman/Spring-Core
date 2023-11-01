@@ -17,7 +17,7 @@ The XML declaration of beans is done in following fashion:
 </beans>
 ```
 
-The equivalent bean declaration can also be done using `@Component` annotation.
+The equivalent bean declaration can be done by just using `@Component` annotation on the desired bean class.
 
 | xml           | Annotation   |
 |---------------|--------------|
@@ -32,7 +32,7 @@ But, for allowing Spring framework to scan specific packages to get these classe
 
 ## Enabling Component Scanning:
 
-The component scanning can be enabled either through XML configuration file or Java configuration file.
+The component scanning can be enabled either through XML configuration file or through Java configuration file.
 
 ### 1. XML configuration file
 
@@ -310,7 +310,7 @@ car.features = Power Steering, Power Windows, Air Conditioner, Heater \
 car.colors = Orcus White, Calypso Red, Daytona Grey, Oberon Black
 
 ##Map
-car.specifications ={Mileage: '14.6kmpl', 'Fuel Type': 'Diesel', 'Fuel Tank Capacity': 50.0, \
+car.specifications ={'Mileage': '14.6kmpl', 'Fuel Type': 'Diesel', 'Fuel Tank Capacity': 50.0, \
   'Seating Capacity': 5, 'Body Type': 'SUV'}
 ```
 
@@ -342,7 +342,7 @@ car.specifications ={Mileage: '14.6kmpl', 'Fuel Type': 'Diesel', 'Fuel Tank Capa
 - The properties are provided in an external file `application.properties`
 - `<context:property-placeholder/>` element is used to specify the external properties file.
 
-- However, the util schema could also be used instead, to specify standalone collections here directly, and it would also be referred in bean in a similar fashion
+- However, the `util` schema could also be used instead, to specify standalone collections here directly, and it would also be referred in bean in a similar fashion
 (through `@Value` annotation).<br>
 And the constant values would then be declared as
    ```java
@@ -425,7 +425,7 @@ The properties from this external properties file can either be injected through
 `@Value` is used for injecting direct values or property placeholders or SpEL expressions in spring beans.
 
 >**Note:**<br>
->The constructor, setter or field injection happens based on where the annotation like @Value or @Autowired is used.<br>
+>The constructor, setter or field injection happens based on where the annotation like `@Value` or `@Autowired` is used.<br>
 > If used on field directly it will be field injection, if used on setter methods it will be setter injection, and
 > if used on constructor params it will be constructor injection.
 

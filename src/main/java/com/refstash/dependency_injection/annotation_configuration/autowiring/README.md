@@ -31,9 +31,9 @@ And based on this it will be either field injection or setter injection or const
 
 The default behavior of `@Autowired` is to treat the annotated methods, fields or constructors as required dependencies.
 When a bean is being constructed, the `@Autowired` dependencies should be available.
-If Spring cannot resolve a bean for wiring, it will throw an exception.
+If Spring cannot resolve a corresponding bean for wiring, it will throw an exception.
 
-This behaviour can be changed by setting the required attribute in `@Autowired` annotation to _false_.
+This behaviour can be changed by setting the `required` attribute in `@Autowired` annotation to `false`.
 This will enable the framework to skip a non-satisfiable dependencies by marking it as non-required.
 
 ```java
@@ -75,7 +75,7 @@ The dependency is marked as optional.
 > - A non-required method will not be called at all if any of its dependency (method argument) is not available. <br>
 > - A non-required field will not get populated at all in such cases, leaving its default value in place.
 
-So, setting the required attribute to _false_ in `@Autowired` marks those properties as optional.
+So, setting the required attribute to `false` in `@Autowired` marks those properties as optional.
 This allows properties to be assigned default values that can be optionally overridden via dependency injection.
 
 Alternatively a dependency can also be marked non-required by wrapping it in `java.util.Optional` or through `@Nullable` annotation.
@@ -154,18 +154,18 @@ In setter method
 
 Rules for using `@Autowired` on constructors:
 1. **Single Constructor:** If a class has only one constructor, Spring will always use that constructor to create the bean, 
-   even if it is not annotated with @Autowired. <br>So, @Autowired annotation is not necessary on that single constructor of the class.
+   even if it is not annotated with `@Autowired`. <br>So, `@Autowired` annotation is not necessary on that single constructor of the class.
 
-   But if there are multiple constructors and none of there are @Autowired annotated, spring will fall back to the default constructor for 
+   But if there are multiple constructors and none of there are `@Autowired` annotated, spring will fall back to the default constructor for 
    bean creation, if the default constructor is not available spring will throw and exception.
 
 2. **Only One Autowired Constructor:** If a class has multiple constructors and more than one of them is annotated with `@Autowired` 
-   with the required attribute set to true (the default value), Spring won't know which constructor to use for creating instance and autowiring, 
+   with the required attribute set to `true` (the default value), Spring won't know which constructor to use for creating instance and autowiring, 
    and thus will throw an exception.<br> 
-   So, in such cases, only one constructor can be annotated with `@Autowired` and "required=true" (the default value). 
-   The other constructors can either remove `@Autowired` or put "required=false" on them (i.e: `@Autowired` on preferred one and `@Autowired(required=false)` on remaining).
+   So, in such cases, only one constructor can be annotated with `@Autowired` and `required=true` (the default value). 
+   The other constructors can either remove `@Autowired` or put `required=false` on them (i.e: `@Autowired` on preferred one and `@Autowired(required=false)` on remaining).
 
-3. **Multiple non-required Autowired Constructors:** If there are multiple constructors that can be autowired, all of them need to set the required attribute to _false_. 
+3. **Multiple non-required Autowired Constructors:** If there are multiple constructors that can be autowired, all of them need to set the required attribute to `false`. 
    This allows Spring to consider all those constructors as candidates for autowiring, and it will choose the constructor with the most matching dependencies.
    (i.e: the constructor with most number of arguments that can be satisfied with the available beans).<br>
    And, if no such constructor can be satisfied, Spring will fall back to default constructor for instance creation; if the default constructor is also not present, Spring will throw an exception.
@@ -202,9 +202,9 @@ Output:
 ```java
 In one-arg constructor
 ```
-- @Autowired annotation on such a constructor is not necessary if the target bean defines only one constructor to begin with. 
+- `@Autowired` annotation on such a constructor is not necessary if the target bean defines only one constructor to begin with. 
   However, if several constructors are available and there is no primary/default constructor, at least one of the constructors 
-  must be annotated with @Autowired in order to instruct the container which one to use.
+  must be annotated with `@Autowired` in order to instruct the container which one to use.
 
 **Multiple Constructors**
 ```java
@@ -236,7 +236,7 @@ In one-arg constructor
 ```
 
 ## @Autowired on arbitrary method
-@Autowired can also be used on arbitrary methods, the specified method arguments would get autowired.
+`@Autowired` can also be used on arbitrary methods, the specified method arguments would get autowired.
 ```java
 //imports
 @Component
@@ -266,7 +266,7 @@ In injectDependency()
 
 ## @Autowired on arrays/collections
 
-@Autowired can be used to inject multiple available beans of a specific type.
+`@Autowired` can be used to inject multiple available beans of a specific type.
 This can be achieved by using arrays, collections, or maps to collect those injected beans.
 
 _NotificationService and implementations_
@@ -467,7 +467,8 @@ Element found
 >this leads to ambiguity and thus spring throws following exception:
 >```shell
 >Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of 
->type 'com.refstash.dependency_injection.annotation_configuration.autowiring.SortAlgorithm' available: expected single matching bean but found 2: bubbleSort,heapSort
+>type 'com.refstash.dependency_injection.annotation_configuration.autowiring.SortAlgorithm' available: 
+>expected single matching bean but found 2: bubbleSort,heapSort
 >```
 >If only one of these two classes are marked `@Component`, autowiring happens without any hassle.<br>
 >To avoid this ambiguity, `@Component` annotation is intentionally commented in HeapSort class.
@@ -571,7 +572,7 @@ Element found
 Herein, **BubbleSort** will be autowired in **BinarySearch** as it is marked as the default preferred one using the `@Primary` annotation.
 
 ### Ambiguity resolution using name of bean (Autowiring by name)
-In case multiple beans are present that can satisfy the dependency, the dependency instance can be named same as preferred bean to avoid ambiguity.
+In case multiple beans are present that can satisfy the dependency, the dependency property can be named same as the preferred bean to avoid ambiguity.
 
 [_SortAlgorith.java_](./SortAlgorithm.java)
 ```java
@@ -625,7 +626,7 @@ public class HeapSort implements SortAlgorithm {
 @Component
 public class BinarySearch {
     // Dependency of BinarySearch
-    // Dependency injected by Spring
+    // property named same as the desired dependency
     @Autowired
     private SortAlgorithm heapSort;
 
@@ -789,7 +790,7 @@ Herein, **HeapSort** will be autowired in **BinarySearch** as its qualifier valu
 >Qualifiers can also be applied to typed collection : <br>
 >- Let's say we have three different `NotificationService`: `EmailNotificationService`, `SMSNotificationService` and `PostalLetterNotificationService`.
 >- And out of these only `EmailNotificationService` and `SMSNotificationService` beans are annotated `@Qualifier("digital")`.
->  Then the `Set<NotificationService>` with same qualifier "digital" will be populated/autowired with these two beans only.
+>  Then the `Set<NotificationService>` with same qualifier `digital` will be populated/autowired with these two beans only.
 >
 >Thus, qualifier need not be unique; they constitute filtering criteria.
 
@@ -797,7 +798,7 @@ Herein, **HeapSort** will be autowired in **BinarySearch** as its qualifier valu
 **Summary:**<br>
 If there is no other resolution indicator (such as a qualifier or a primary marker) for a non-unique dependency situation,
 Spring matches the injection point name (field name/parameter name) against the available beans and chooses the same named candidate, if any exists.
-@Autowired applies to fields, constructors, and multi-argument methods, allowing for narrowing through qualifier annotations at the parameter level.
+`@Autowired` applies to fields, constructors, and multi-argument methods, allowing for narrowing through qualifier annotations at the parameter level.
 
 So, there are 3 different ways of resolving multiple candidates available for autowiring:
 1. `@Primary`

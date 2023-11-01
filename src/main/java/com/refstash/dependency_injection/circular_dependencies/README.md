@@ -70,18 +70,20 @@ public class App {
 ```
 - The configuration is only needed to load the context.
 ```shell
-org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'beanA': Requested bean is currently in creation: Is there an unresolvable circular reference?
+org.springframework.beans.factory.BeanCurrentlyInCreationException: 
+Error creating bean with name 'beanA': Requested bean is currently in creation: 
+Is there an unresolvable circular reference?
 ```
 
->Overall, Spring's IoC container does a good job of detecting configuration problems like circular dependencies during container load-time.<br>
->However, these errors are not detected at load time for prototype scoped beans since they are lazily initialized.
+>Overall, Spring's IOC container does a good job of detecting configuration problems like circular dependencies during container load-time.<br>
+>However, these errors are not detected at load time for prototype scoped beans since they are lazily initialized, or lazy initialized singleton beans.
 
 
 ## Resolutions for Circular Dependencies
 The cyclic dependency can be generally considered as design problem and may require redesign (as the responsibilities are not well separated).<br>
 But, it is possible to resolve it through following ways:
 ### **1. Using setter/field injection instead of constructor injection:**
-This way, Spring creates the beans, but the dependencies are not injected until they are needed. And, since the constructors of beans are independent
+This way, Spring creates the beans, and the dependencies are injected after creation. Since, the constructors of beans are independent
 there is no problem in instance creation.
 
 ```java

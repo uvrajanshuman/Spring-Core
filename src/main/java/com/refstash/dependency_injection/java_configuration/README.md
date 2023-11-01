@@ -34,7 +34,7 @@ The `@Bean` definitions in this class can have dependencies on each other (direc
 ## Bean dependencies and Autowirng
 
 In case Beans have dependencies on one another, expressing that dependency is as simple as having one `@Bean` method call another.<br>
-Example: Let's consider BeanB has dependency on BeanA.
+Example: Let's consider `BeanB` has dependency on `BeanA`.
 
 ```java
 //imports
@@ -91,10 +91,10 @@ file is a Java class.
 ```java
 ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class );
 ```
-AnnotationConfigApplicationContext is not limited to @Configuration classes, 
-any @Component classes (or JSR-330 annotated classes) can bes supplied as well.
+`AnnotationConfigApplicationContext` is not limited to `@Configuration` classes, 
+any `@Component` classes (or JSR-330 annotated classes) can be supplied as well.
 
-**Any @Component or equivalent class as input:**
+**Any `@Component` or equivalent class as input:**
 ```java
 ApplicationContext ctx = new AnnotationConfigApplicationContext(MyServiceImpl.class, Dependency1.class, Dependency2.class);
 ```
@@ -126,6 +126,7 @@ public interface ConfigA {
 
 // Interface with a default method that defines a bean
 public interface ConfigB {
+    @Bean
     default BeanB beanB() {
         return new BeanB();
     }
@@ -153,7 +154,7 @@ public class App {
 
 - Using default methods in interfaces to define beans can help in creating modular and reusable configurations in Spring, promoting code organization and enhancing readability.
 
-## Composing Annotation based configuration metadata using _@Import_ Annotation.
+## Composing Annotation based configuration metadata using _@Import_ Annotation
 
 It can be useful to have bean definitions span multiple configuration classes,
 as each individual configuration class can represent a logical layer or module in the architecture.
@@ -420,7 +421,7 @@ public class AppConfig {
 - In case Beans have dependencies on one another, expressing that dependency is as simple as having one bean method call another
 
 > By default, the bean name will be the same as the `@Bean` annotated method name.<br>
-> But herein custom names and aliases can be provided like: `@Bean("harrierEngine")` or (`@Bean(name="harrierEngine")`) and `@Bean(name = {"tataHarrier","harrier"})`<br>
+> But herein custom names and aliases can be provided like: `@Bean("harrierEngine")` (or `@Bean(name="harrierEngine")`) and `@Bean(name = {"tataHarrier","harrier"})`<br>
 > The first one provides a custom name to the bean while the latter specifies
 > multiple aliases or bean names separated by commas; the bean can be accessed using any one of these.
 
@@ -567,12 +568,12 @@ car.specifications.BodyType: 'SUV'
 
 ## Integrating XML-based bean definitions into a Java-based configuration using _@ImportResource_ Annotation
 
-The @ImportResource annotation, when applied to a configuration class, indicates that additional bean definitions will be loaded from the specified XML configuration file.<br>
+The `@ImportResource` annotation, when applied to a configuration class, indicates that additional bean definitions will be loaded from the specified XML configuration file.<br>
 The imported beans can then be accessed and utilized in the Java code.
 
 ### Example demonstrating the usage of the `@ImportResource` annotation to import XML-based bean definitions into a Spring configuration:
 
-**XML configuration: ** _applicationContext.xml_
+**XML configuration:** _applicationContext.xml_
 
 ```xml
 <!-- applicationContext.xml -->
@@ -613,7 +614,7 @@ import org.springframework.context.annotation.ImportResource;
 public class App {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(XmlConfigurationExample.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(App.class);
         MyBean myBean = context.getBean(MyBean.class);
         myBean.sayHello();
         context.close();

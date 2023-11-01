@@ -5,17 +5,17 @@ Spring provides several bean scopes that determine how instances of beans are cr
 
 Here are the commonly used bean scopes in Spring:
 
-1. Singleton: This is the default scope in Spring. A singleton bean is created once per container and shared by all the requests for that bean. It means that all the requests for the bean will receive the same instance.
+1. **Singleton**: This is the default scope in Spring. A singleton bean is created once per container and shared by all the requests for that bean. It means that all the requests for the bean will receive the same instance.
 
-2. Prototype: A prototype bean is created each time it is requested from the container. It means that a new instance is created every time the bean is injected into another bean or is requested.
+2. **Prototype**: A prototype bean is created each time it is requested from the container. It means that a new instance is created every time the bean is injected into another bean or is requested.
 
-3. Request: A request-scoped bean is created once per HTTP request. It means that each new HTTP request will have its own instance of the bean. This scope is typically used for web applications.
+3. **Request**: A request-scoped bean is created once per HTTP request. It means that each new HTTP request will have its own instance of the bean. This scope is typically used for web applications.
 
-4. Session: A session-scoped bean is created once per user session. It means that each new user session will have its own instance of the bean. This scope is also used in web applications.
+4. **Session**: A session-scoped bean is created once per user session. It means that each new user session will have its own instance of the bean. This scope is also used in web applications.
 
-5. Application: An application-scoped bean is created once for the entire application context. It means that all requests within the application will share the same instance of the bean. Only valid in the context of a web-aware Spring ApplicationContext.
+5. **Application**: An application-scoped bean is created once for the entire application context. It means that all requests within the application will share the same instance of the bean. Only valid in the context of a web-aware Spring ApplicationContext.
 
-6. Websocket: This scope is specific to WebSocket-based applications. A bean with this scope is created once per WebSocket session.
+6. **Websocket**: This scope is specific to WebSocket-based applications. A bean with this scope is created once per WebSocket session.
 
 The last four scopes mentioned request, session, application and websocket, are only available in a web-aware application.
 The singleton and prototype scopes are available in any type of IOC container.
@@ -30,7 +30,7 @@ The Spring container creates and manages only one bean class instance per contai
 This single instance is stored in a cache of such singleton beans, and all subsequent requests and references for that named bean return the cached instance.
 
 By default, ApplicationContext eagerly initializes all the Singleton beans during the initialization process. This is generally
-desirable as it helps to detect the configuration issues in early stages.<br>
+desirable as it helps to detect the configuration issues (like: circular dependencies etc.) in early stages.<br>
 But, when this behaviour is not desirable the **Singleton** beans can be marked for lazy-initialization; and the IOC container
 will create the bean instance when it is first requested, rather than at startup.<br>
 [Lazy initailization of Singleton beans](../dependency_injection/lazy_initialization/README.md)
@@ -101,10 +101,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class PrototypeBean {
+    //Bean implementation
 }
 ```
 
-[App.java]
+[App.java](./App.java)
 ```java
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -130,8 +131,8 @@ prototypeInstance1 == prototypeInstance2 : false
 ```
 >The container provided different instance for each request.
 
->Singleton: Usually preferred for stateless beans, generic beans that do not have any user information and can be used across the application.<br>
->Prototype beans: Usually preferred for stateful beans. Ex. if we want to create a bean to hold user info, in such cases single bean can not be used across the application
+>**Singleton beans:** Usually preferred for stateless beans, generic beans that do not have any user information and can be used across the application.<br>
+>**Prototype beans:** Usually preferred for stateful beans. Ex. if we want to create a bean to hold user info, in such cases single bean can not be used across the application
 
 ## Complex scope scenarios
 

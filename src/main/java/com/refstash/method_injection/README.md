@@ -10,10 +10,10 @@ The method injection can be achieved in two ways:
 
 ## Method injection using _@Autowired_ annotation
 
-@Autowired can also be used on arbitrary methods, the specified method arguments would get autowired automatically.
+`@Autowired` can also be used on arbitrary methods, the specified method arguments would get autowired automatically.
 
 Example:
-Let's consider a NotificationService bean that needs to send notifications via different channels such as email and SMS.<br> 
+Let's consider a **NotificationService** bean that needs to send notifications via different channels such as _email_ and _SMS_.<br> 
 The specific channel to be used for sending notifications is determined dynamically based on user preferences.
 
 _NotificationSender and different implementations (represents different notification channels)_
@@ -69,7 +69,7 @@ class NotificationService {
     }
 }
 ```
-- @Autowired used on factory methods. The method params would be injected automatically. 
+- `@Autowired` used on factory methods. The method params would be injected automatically. 
 
 _Driver and Configuration class_
 ```java
@@ -108,7 +108,7 @@ As a result, the container cannot provide the singleton bean with a new instance
 
 ### Using **ApplicationContext** directly
 One solution to this is to forego some inversion of control; and make the bean aware of `ApplicationContext` by implementing the `ApplicationContextAware`
-interface (or directly autowiring ApplicationContext) and by using `getBean()` method to request a new instance of dependency whenever needed.
+interface (or directly autowiring `ApplicationContext`) and by using `getBean()` method to request a new instance of dependency whenever needed.
 
 _Prototype scoped bean_
 ```java

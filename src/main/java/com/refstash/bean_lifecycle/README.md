@@ -1,7 +1,7 @@
 # Spring Bean Lifecycle Callbacks
 
 There are list of activities that happen behind the scenes between bean instantiation and destruction.<br>
-Two of the major callbacks are:
+Two of the major callbacks that happen during a Bean's lifecycle are:
 1. **Initialization callback** : The callback happens at the time of bean initialization. Gets executed as soon as the bean is initialized. 
 2. **Destruction callback** : The callback happens at the time of bean destruction. Gets executed as just before the bean is destroyed.
 
@@ -18,7 +18,7 @@ Spring's web-based `ApplicationContext` implementations implicitly handle the gr
 
 But, in a non-web application the resources are not released automatically on the IOC container shutdown.<br>
 In a non-web application there is a need to register a shutdown hook with JVM. 
-Doing so ensures a graceful shutdown and calls the relevant destroy methods on the singleton beans so 
+Doing so ensures a graceful shutdown and calls the relevant destroy methods on the **singleton beans** so 
 that all resources are released. <br>
 The destroy callback methods still needs to configured.
 
@@ -175,22 +175,22 @@ separated from core Java modules in JDK 9 and eventually got removed in JDK 11.<
 As of Jakarta EE 9, the package now resides in `jakarta.annotation` now
 - So an additional dependency (`jakarta.annotation`) needs to be added to use these annotations:
 
-[_build.gradle_](../../../../../../build.gradle)
-```properties
-...
-dependencies {
-    //...
-    // https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api
-    implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
-}
-```
+    [_build.gradle_](../../../../../../build.gradle)
+    ```properties
+    ...
+    dependencies {
+        //...
+        // https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api
+        implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
+    }
+    ```
 
 [_LifeCycleExample.java_](./annotationImpl/LifeCycleExample.java)
 ```java
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 @Component
 public class LifeCycleExample {
@@ -480,9 +480,10 @@ destroy() method invoked
 
 Spring provides following three lifecycle callback methods:
 1. The `InitializingBean` and `DisposableBean` callback interfaces
-2. Custom `init()` and `destroy()` methods
-3. The `@PostConstruct` and `@PreDestroy` annotations
-The three bean lifecycle callbacks can be combined as well.
+2. Custom `init()` and `destroy()` methods set via XML or Java based configuration.
+3. The `@PostConstruct` and `@PreDestroy` annotations.
+
+These three bean lifecycle callbacks can be combined as well.
    
 If multiple lifecycle mechanisms are configured for a bean and each mechanism is configured with a different method name, 
 then each configured method is run in the following order:

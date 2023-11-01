@@ -96,11 +96,11 @@ For example:
 
 ```xml
 <beans profile="development">
-	<!-- Development profile configuration -->
+    <!-- Development profile configuration -->
 </beans>
 
 <beans profile="production">
-	<!-- Production profile configuration -->
+    <!-- Production profile configuration -->
 </beans>
 ```
 
@@ -153,9 +153,9 @@ public class DefaultDataConfig {
   public DataSource dataSource() {
       // Configuration for default profile
       // ...
-	}
+  }
     
-    // ...
+  // ...
 }
 ```
 
@@ -167,4 +167,4 @@ This can be treated as a way to specify the default implementations/definitions.
 > declaratively using the `spring.profiles.default` property
 
 
-[Complete working example demonstrating the use of @Profile can be found here: ](../profiles)
+[Complete working example demonstrating the use of @Profile can be found here](../profiles)

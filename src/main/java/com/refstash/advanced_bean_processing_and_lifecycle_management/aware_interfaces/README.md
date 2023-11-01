@@ -4,10 +4,10 @@ The Aware interfaces are a set of marker interfaces that components can implemen
 or environment settings. 
 They allow to hook into the inner workings of the Framework.
 
-The Spring beans might require access to framework objects, such as ApplicationContext, BeanFactory, ResourceLoader etc.
+The Spring beans might require access to framework objects, such as `ApplicationContext`, `BeanFactory`, `ResourceLoader` etc.
 To gain such accesses, these Aware interfaces can be implemented.
 
-By implementing Aware interfaces, components can receive specific callbacks and obtain relevant resources (like ApplicationContext, BeanFactory etc.) from the container during initialization.
+By implementing Aware interfaces, components can receive specific callbacks and obtain relevant resources (like `ApplicationContext`, `BeanFactory` etc.) from the container during initialization.
 
 There are various Aware interfaces available in Spring, each focusing on a different aspect of the application context or environment. <br>
 Some common ones are:

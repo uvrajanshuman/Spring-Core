@@ -35,7 +35,7 @@ public class BeanNameAwareBean implements BeanNameAware {
 }
 ```
 
-## Usage:
+## Usages:
 
 `BeanNameAware` can be beneficial in various scenarios:
 

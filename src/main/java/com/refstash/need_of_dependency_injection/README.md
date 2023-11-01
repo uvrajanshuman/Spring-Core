@@ -38,16 +38,15 @@ It reduces coupling between components, enables code reuse, and enhances the ove
 A Dependency of a class is simply what are the things required by the class to perform its functionality.
 
 ```java
-public class BinarySearch{
+public class BinarySearch{ 
     private SortAlgorithm sortAlgorithm;
-    .....
-    .....
+    //...
 }
 ```
 
 Here, The **BinarySearch** class depends on **SortAlgorithm**. So **SortAlgorithm** is a dependency of **BinarySearch**.
 
-A complex application will have several dependency at several levels.
+A complex application will have several dependency at different levels.
 
 ## Typical code without dependency injection 
 
@@ -55,19 +54,17 @@ A complex application will have several dependency at several levels.
 public class BinarySearch{
     // Direct instantiation of dependency
     private SortAlgorithm sortAlgorithm = new BubbleSortAlgorithm();
-    .....
-    .....
+    //...
 }
 ```
 
 ```java
 public class BubbleSortAlgorithm implements SortAlgorithm{
-    ......
-    ......
+    //...
 }
 ```
 
-Here in, the dependency is directly instantiated in the class (BinarySearch) itself.
+Here in, the dependency is directly instantiated in the class (**BinarySearch**) itself.
 
 But what if a different sortAlgorithm is required, lets say now **HeapSort** is required instead of **BubbleSort**. <br>
 In that case following changes would be required to the **BinarySearch** class :
@@ -92,16 +89,14 @@ public class BinarySearch{
     public BinarySearch(SortAlgorithm sortAlgorithm){
         this.sortAlgorithm = sortAlgorithm;
     }
-    .....
-    .....
+    
+    //...
 }
 ```
 ```java
 public class BubbleSort implements SortAlgorithm{
-    ......
-    ......
+    //...
 }
-
 ```
 
 ```java 
@@ -111,8 +106,7 @@ public class App{
         SortAlgorithm sortAlgorithm = new BubbleSort();
         //Injecting dependency while instantiating.
         BinarySearch binarySearch = new BinarySearch(sortAlgorithm);
-        .....
-        .....
+        //...
     }
 }
 ```
@@ -121,7 +115,7 @@ public class App{
 This helps to achieve loose-coupling.
 - This can also be done by passing the dependency through setter method instead of constructor.
 - `BinarySearch` and `SortAlgorithm` are no more tightly-coupled. Hence, `BinarySearch` is not dependent on a specific `SortAlgorithm`.
-- The choice of `SortAlgorithm` depends on the user of `BinarySearch`.
+- The choice of `SortAlgorithm` now depends on the user of `BinarySearch`.
 
 >Spring framework does the same. It instantiates the objects and populates their dependencies.
 
@@ -132,10 +126,10 @@ This helps to achieve loose-coupling.
 Spring can also be used for dependency injection to achieve loose-coupling.<br>
 However, the objects that the spring framework needs to manage and the dependencies of those objects, needs to be specified to the spring.
 
-For Ex: In Annotation Based configuration
-- `@Component`: specifies spring that it needs to manage instances of these classes.<br>
+For Example: In Spring's Annotation Based configuration
+- `@Component`: specifies the classes that Spring needs to manage.<br>
     Spring would start creating and managing instance of these classes.
-- `@Autowired`: specifies the dependencies.<br>
+- `@Autowired`: specifies the dependencies of the managed classes.<br>
     Spring would look for these dependencies among the classes it manages and would inject it wherever required.
 
 ```java
@@ -147,17 +141,15 @@ public class BinarySearch {
     public BinarySerach(SortAlgorithm sortAlgorithm) {
         this.sortAlgorithm = sortAlgorithm;
     }
-    .....
-            .....
+    
+    //...
 }
 ```
 ```java
 @Component
 public class BubbleSortAlgorithm implements SortAlgorithm{
-    ......
-    ......
+    //...
 }
-
 ```
 
 Spring would internally do this:
@@ -166,8 +158,10 @@ SortAlgorithm sortAlgorithm = new BubbleSortAlgorithm();
 //Injecting dependency while instantiating.
 BinarySearch binarySearch = new BinarySearch(sortAlgorithm);
 ```
-- It would create an instance of **BubbleSortAlgorithm** and pass it to the constructor of **BinarySearch** while instantiating it.
-  It can also set the **SortAlgorithm** property of **BinarySearch** using the setter method.
+- It would create an instance of **BubbleSortAlgorithm** and pass it to the setter of **BinarySearch** after instantiating it.
+  
+- Alternatively, Spring can also set the **SortAlgorithm** property of **BinarySearch** using constructor or through Java reflection API
+  (depending on the type of _Autowiring_).
 
 >Spring would make sure it creates the instances of all the objects it manages with their dependencies properly populated.
 

@@ -1,7 +1,7 @@
 # BeanFactoryPostProcessor in Spring
 
-The `BeanFactoryPostProcessor` interface is a powerful mechanism that allows to customize the Spring BeanFactory configuration before the beans are actually created and initialized. 
-It provides a way to modify the bean definitions, property values, and other configurations at an early stage of the ApplicationContext initialization.
+The `BeanFactoryPostProcessor` interface is a powerful mechanism that allows to customize the Spring `BeanFactory` configuration before the beans are actually created and initialized. 
+It provides a way to modify the bean definitions, property values, and other configurations at an early stage of the `ApplicationContext` initialization.
 
 
 ## Understanding BeanFactoryPostProcessor
@@ -102,6 +102,7 @@ class CustomBeanDefinitionBeanFactoryPostProcessor implements BeanFactoryPostPro
 ```
 - Herein, the `value` property of `MyBean` is overridden using `CustomBeanFactoryPostProcessor`.
 - "Hello" get overridden with "Hello World"
+
 Output:
 ```shell
 Hello World

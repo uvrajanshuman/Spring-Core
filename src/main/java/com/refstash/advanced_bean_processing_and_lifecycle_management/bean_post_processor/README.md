@@ -59,7 +59,7 @@ public class CustomBeanPostProcessor implements BeanPostProcessor {
 }
 ```
 
-## Usage:
+## Usages:
 
 The `BeanPostProcessor` is a powerful tool that can be utilized for various purposes, such as:
 
@@ -78,7 +78,7 @@ The `BeanPostProcessor` is a powerful tool that can be utilized for various purp
    You can use `BeanPostProcessor` to manage resources associated with beans, such as opening or closing connections, streams, or sessions.
 
 5. **Custom Annotations:**\
-   BeanPostProcessors can be used to handle custom annotations. 
+   `BeanPostProcessors` can be used to handle custom annotations. 
    For example, custom annotations can be created and `BeanPostProcessor` can be used to process beans annotated with those annotations.
 
 **Internal Usage by Spring Framework:**

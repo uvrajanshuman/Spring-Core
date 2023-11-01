@@ -1,7 +1,7 @@
 # Spring IOC Container
 
 A component/program of spring framework which maintains the lifecycle of the managed objects. These managed objects are called Spring Beans.<br>
-The IOC container is responsible for object creation, holding them in memory, injecting them into other objects as per need, as well as managing entire
+The IOC container is responsible for object creation, holding them in memory, injecting them into other objects as per need, as well as managing the entire
 lifecycle of these objects from creation till destruction.
 
 It implements the principle of dependency injection and facilitates loose coupling between components.
@@ -54,7 +54,7 @@ such as simple integration with Spring's AOP, message resource handling (for I18
 
 ApplicationContext follows eager-initialization technique which means instance of beans are created as soon as you create the instance of Application context.
 
-## Creating a Spring container
+## Instantiating a Spring IOC container
 
 ### 1. BeanFactory Spring container
 
@@ -99,21 +99,21 @@ ApplicationContext applicationContext = new FileSystemXmlApplicationContext(path
 Here, **path** describes the location of XML-based Spring configuration file.
 
 #### 3. AnnotationConfigApplicationContext
-AnnotationConfigApplicationContext class used to load Annotation based configuration classes. 
+AnnotationConfigApplicationContext class is used to load Annotation based configuration classes. 
 It can take classes annotated with `@Configuration`, `@Component`, etc. as input.
 
 ```java
 ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 ```
-Here **AppConfig.class** the Annotated Spring configuration class.
+Here **AppConfig.class** is the Annotated Spring configuration class.
 
 
 **Note:**
 >`AnnotationConfigWebApplicationContext` and `XmlWebApplicationContext` are the implementations of `WebApplicationContext` and are used for web applications.
 
 >Since, `ApplicationContext` is the child interface of `BeanFactory`, and `WebApplicationContext` is also an indirect child interface of `BeanFactory`.<br>
->Any implementation of `WebApplicationContext` can be referred using any of the following instances `BeanFactory` instance, `ApplicationContext` instance, or `WebApplicationContext` instance.<br>
->Similarly, any implementation fo `ApplicationContext` interface can be referred using `ApplicationContext` instance or `BeanFactory` instance.
+>Any implementation of `WebApplicationContext` can be referred using any of the following `BeanFactory` reference, `ApplicationContext` reference, or `WebApplicationContext` reference.<br>
+>Similarly, any implementation fo `ApplicationContext` interface can be referred using `ApplicationContext` reference or `BeanFactory` reference.
 
 ## Retrieving a Bean from Spring IOC container
 

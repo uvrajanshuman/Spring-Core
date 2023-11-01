@@ -66,13 +66,14 @@ A `<bean/>` element inside the `<property/>` or `<constructor-arg/>` elements de
 Example:
 ```xml
 <bean id="outer" class="...">
-	<!-- instead of using a reference to a target bean, simply define the target bean inline -->
-	<property name="target">
-		<bean class="com.example.Person"> <!-- this is the inner bean -->
-			<property name="name" value="Fiona Apple"/>
-			<property name="age" value="25"/>
-		</bean>
-	</property>
+  <!-- instead of using a reference to a target bean, simply define the target bean inline -->
+  <property name="target">
+    <!-- this is the inner bean -->
+    <bean class="com.example.Person"> 
+      <property name="name" value="Fiona Apple"/>
+      <property name="age" value="25"/>
+    </bean>
+  </property>
 </bean>
 ```
 - An inner bean definition does not require a defined ID or name. 
@@ -361,8 +362,8 @@ public class Engine {
 public class App {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("/com/refstash/dependency_injection/xml_configuration/setter_injection/config.xml");
-        Car hondaCivic = context.getBean("tataHarrier",Car.class);
-        System.out.println(hondaCivic);
+        Car tataHarrier = context.getBean("tataHarrier",Car.class);
+        System.out.println(tataHarrier);
     }
 }
 ```
